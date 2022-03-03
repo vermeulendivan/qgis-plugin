@@ -47,6 +47,5 @@ class AboutDialog(QtWidgets.QDialog, FORM_CLASS):
 
         self.about_web_view.setHtml(get_about_html(message))
 
-
     def link_clicked(self, url):
         QtGui.QDesktopServices.openUrl(url)

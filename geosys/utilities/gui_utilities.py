@@ -451,7 +451,7 @@ def create_hotspot_layer(source, source_type, source_filename):
 
     file_name = '{}{}'.format(source_filename, SHP_EXT)
     output_dir = setting(
-            'output_directory', expected_type=str)
+        'output_directory', expected_type=str)
     file_name = os.path.join(output_dir, file_name)
 
     # Save memory layer to disk

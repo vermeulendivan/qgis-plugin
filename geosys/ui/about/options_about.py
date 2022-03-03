@@ -31,9 +31,12 @@ def options_about():
     message.add(content())
 
     # Social media icons for use in the about dialog
-    icon_linkedin = resources_path('img', 'icons', 'about', 'svg', 'linkedin.svg')
-    icon_twitter = resources_path('img', 'icons', 'about', 'svg', 'twitter.svg')
-    icon_youtube = resources_path('img', 'icons', 'about', 'svg', 'youtube.svg')
+    icon_linkedin = resources_path(
+        'img', 'icons', 'about', 'svg', 'linkedin.svg')
+    icon_twitter = resources_path(
+        'img', 'icons', 'about', 'svg', 'twitter.svg')
+    icon_youtube = resources_path(
+        'img', 'icons', 'about', 'svg', 'youtube.svg')
 
     # Adds the icons to the about dialog
     message.add(tr(

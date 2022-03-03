@@ -186,7 +186,7 @@ def create_map(
     """Create map based on given parameters.
 
     :param map_specification: Result of single map coverage specifications.
-        example: {   
+        example: {
             "seasonField": {
                 "id": "zgzmbrm",
                 "customerExternalId": "..."
@@ -214,13 +214,13 @@ def create_map(
 
     :param output_dir: Base directory of the output.
     :type output_dir: str
-    
+
     :param filename: Filename of the output.
     :type filename: str
-    
+
     :param output_map_format: Output map format.
     :type output_map_format: dict
-    
+
     :param data: Map creation data.
         example: {
             "MinYieldGoal": 0,
@@ -228,7 +228,7 @@ def create_map(
             "HistoricalYieldAverage": 0
         }
     :type data: dict
-    
+
     :param params: Map creation parameters.
     :type params: dict
     """""
@@ -268,7 +268,7 @@ def create_difference_map(
     """Create map based on given parameters.
 
     :param map_specifications: List of map coverage specification.
-        example: [{   
+        example: [{
             "seasonField": {
                 "id": "zgzmbrm",
                 "customerExternalId": "..."
@@ -496,7 +496,7 @@ def download_field_map(
             extract_zip(zip_path, destination_base_path)
         else:
             destination_filename = (
-                    destination_base_path + output_map_format['extension'])
+                destination_base_path + output_map_format['extension'])
             fetch_data(url, destination_filename, headers=headers)
             if output_map_format == PNG:
                 # Download associated legend and world-file for geo-referencing
@@ -526,21 +526,21 @@ def download_field_map(
             hotspot_per_part = False
             if data.get('zoningSegmentation'):
                 hotspot_url = '{}?zoning=true&zoneCount={}&hotspot=true' \
-                              '&zoningSegmentation=polygon'.format( \
-                    field_map_json['_links']['self'], data.get('zoneCount'))
+                              '&zoningSegmentation=polygon'.format(
+                                  field_map_json['_links']['self'], data.get('zoneCount'))
 
                 hotspot_per_part = True
 
             else:
                 hotspot_url = '{}?zoning=true&zoneCount={}&hotspot=true'. \
-                    format(\
-                    field_map_json['_links']['self'],
-                    data.get('zoneCount'))
+                    format(
+                        field_map_json['_links']['self'],
+                        data.get('zoneCount'))
 
-            hotspot_url = '{}&hotSpotPosition={}'.format(hotspot_url, data.get('position')) \
-                if data.get('position') else hotspot_url
-            hotspot_url = '{}&hotSpotFilter={}'.format(hotspot_url, data.get('filter')) \
-                if data.get('filter') else hotspot_url
+            hotspot_url = '{}&hotSpotPosition={}'.format(
+                hotspot_url, data.get('position')) if data.get('position') else hotspot_url
+            hotspot_url = '{}&hotSpotFilter={}'.format(
+                hotspot_url, data.get('filter')) if data.get('filter') else hotspot_url
 
             map_json = bridge_api.get_hotspot(hotspot_url)
 

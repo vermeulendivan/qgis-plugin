@@ -284,5 +284,6 @@ class GeosysPlugin:
         dialog = GeosysOptionsDialog(
             self.iface, parent=self.iface.mainWindow())
         if dialog.exec_():  # modal
-            self.populate_map_products()  # Repopulates the maptypes combobox if the user clicked OK
+            # Repopulates the maptypes combobox if the user clicked OK
+            self.populate_map_products()
             pass

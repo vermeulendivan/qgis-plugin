@@ -32,7 +32,7 @@ class FieldLevelMapsAPIClient(ApiClient):
         :type endpoint_url: str
         """
         super(FieldLevelMapsAPIClient, self).__init__(
-                access_token, endpoint_url)
+            access_token, endpoint_url)
 
     @property
     def base_url(self):

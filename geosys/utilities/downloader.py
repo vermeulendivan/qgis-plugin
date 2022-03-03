@@ -182,7 +182,7 @@ class FileDownloader:
                 self.progress_dialog.adjustSize()
 
                 label_text = (
-                        "%s : %s of %s" % (self.prefix_text, received, total))
+                    "%s : %s of %s" % (self.prefix_text, received, total))
 
                 self.progress_dialog.setLabelText(label_text)
                 self.progress_dialog.setMaximum(total)
