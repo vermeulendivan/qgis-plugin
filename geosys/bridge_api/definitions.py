@@ -215,9 +215,8 @@ INSEASON_S2REP = {
     'name': 'INSEASON_S2REP',
     'map_family': base_reference_map,
     'description': 'Provides the in-season Sentinel-2 Red-Edge Position Index. '
-                   'Generates a map according to the amount '
-                   'of chlorophyll content per unit of leaf (LCC).'
-}
+    'Generates a map according to the amount '
+    'of chlorophyll content per unit of leaf (LCC).'}
 
 # Chlorophyll vegetation index
 INSEASON_CVIN = {

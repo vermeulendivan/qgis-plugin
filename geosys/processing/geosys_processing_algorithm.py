@@ -65,6 +65,7 @@ class DateWidgetWrapper(WidgetWrapper):
     WidgetWrapper for QgsProcessingParameterString that create and manage
     a QDateEdit widget.
     """
+
     def createWidget(self):
         """Override method."""
         self.date_edit = QDateEdit()
@@ -281,13 +282,13 @@ class MapCoverageDownloader(QgsProcessingAlgorithm):
                 # Update the progress bar
                 progress_text = (
                     'Downloading {} of {} maps...'.format(
-                        index+1, len(results)))
+                        index + 1, len(results)))
                 feedback.setProgressText(progress_text)
 
                 downloaded_path, message = self.download_map(result)
 
                 feedback.pushInfo(downloaded_path)
-                feedback.setProgress(int((index+1) * total))
+                feedback.setProgress(int((index + 1) * total))
         else:
             message = self.tr(
                 'No coverage result available based on given parameters')

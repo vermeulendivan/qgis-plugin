@@ -39,10 +39,26 @@ from qgis.core import (
 from qgis.PyQt.QtCore import Qt
 
 from geosys.bridge_api.default import (
-    VECTOR_FORMAT, PNG, ZIPPED_TIFF, ZIPPED_SHP, KMZ,
-    VALID_QGIS_FORMAT, YIELD_AVERAGE, YIELD_MINIMUM, YIELD_MAXIMUM,
-    ORGANIC_AVERAGE, POSITION, FILTER, SAMZ_ZONE, SAMZ_ZONING, HOTSPOT, ZONING_SEGMENTATION,
-    MAX_FEATURE_NUMBERS, DEFAULT_ZONE_COUNT, GAIN, OFFSET)
+    VECTOR_FORMAT,
+    PNG,
+    ZIPPED_TIFF,
+    ZIPPED_SHP,
+    KMZ,
+    VALID_QGIS_FORMAT,
+    YIELD_AVERAGE,
+    YIELD_MINIMUM,
+    YIELD_MAXIMUM,
+    ORGANIC_AVERAGE,
+    POSITION,
+    FILTER,
+    SAMZ_ZONE,
+    SAMZ_ZONING,
+    HOTSPOT,
+    ZONING_SEGMENTATION,
+    MAX_FEATURE_NUMBERS,
+    DEFAULT_ZONE_COUNT,
+    GAIN,
+    OFFSET)
 from geosys.bridge_api.definitions import (
     ARCHIVE_MAP_PRODUCTS, ALL_SENSORS, SENSORS, INSEASON_NDVI, INSEASON_EVI,
     SAMZ, SOIL, ELEVATION)
@@ -186,10 +202,16 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         for map_product in ARCHIVE_MAP_PRODUCTS:
             product_name = map_product['name']
             if us_option:  # If US zone is selected the SOILMAP option will be added
-                add_ordered_combo_item(self.map_product_combo_box, map_product['name'], map_product['key'])
+                add_ordered_combo_item(
+                    self.map_product_combo_box,
+                    map_product['name'],
+                    map_product['key'])
             else:  # If EU area is selected the SOILMAP option will not be added
                 if product_name != SOIL['name']:
-                    add_ordered_combo_item(self.map_product_combo_box, map_product['name'], map_product['key'])
+                    add_ordered_combo_item(
+                        self.map_product_combo_box,
+                        map_product['name'],
+                        map_product['key'])
 
     def populate_date(self):
         """Set default value of start and end date to last week."""
@@ -248,7 +270,14 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         OM, SOILMAP, SAMZ, YGM, and YPM map product types.
         """
         selected_map_product = self.map_product  # Map product type selected by the user
-        list_products_to_exclude = ['COLORCOMPOSITION', 'ELEVATION', 'OM', 'SOILMAP', 'SAMZ', 'YGM', 'YPM']
+        list_products_to_exclude = [
+            'COLORCOMPOSITION',
+            'ELEVATION',
+            'OM',
+            'SOILMAP',
+            'SAMZ',
+            'YGM',
+            'YPM']
 
         for map_product_to_exclude in list_products_to_exclude:
             if selected_map_product == map_product_to_exclude:
@@ -292,7 +321,7 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
             if len(self.selected_coverage_results) == 2 and has_same_id and (
                     self.map_product in [
-                INSEASON_NDVI['key'], INSEASON_EVI['key']]):
+                        INSEASON_NDVI['key'], INSEASON_EVI['key']]):
                 self.difference_map_push_button.setVisible(True)
             else:
                 self.difference_map_push_button.setVisible(False)
@@ -465,7 +494,7 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             # layer is not selected
             return False, 'Layer is not selected.'
         use_selected_features = (
-                self.selected_features_checkbox.isChecked() and (
+            self.selected_features_checkbox.isChecked() and (
                 layer.selectedFeatureCount() > 0))
         use_single_geometry = self.single_geometry_checkbox.isChecked()
 
@@ -517,8 +546,16 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         :type map_specifications: list
         """
         # Checks whether the gain and offset values are allowed
-        selected_map_product = self.map_product  # Map product type selected by the user
-        list_products_to_exclude = ['COLORCOMPOSITION', 'ELEVATION', 'OM', 'SOILMAP', 'SAMZ', 'YGM', 'YPM']
+        # Map product type selected by the user
+        selected_map_product = self.map_product
+        list_products_to_exclude = [
+            'COLORCOMPOSITION',
+            'ELEVATION',
+            'OM',
+            'SOILMAP',
+            'SAMZ',
+            'YGM',
+            'YPM']
         gain_offset_allowed = True
         for map_product_to_exclude in list_products_to_exclude:
             if selected_map_product == map_product_to_exclude:
@@ -528,8 +565,8 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         map_product_definition = get_definition(self.map_product)
         if gain_offset_allowed and \
-                (self.spinBox_gain.value() > 0 or
-                 self.spinBox_offset.value() > 0):  # Gain and offset will be added to the data
+                (self.spinBox_gain.value() > 0
+                 or self.spinBox_offset.value() > 0):  # Gain and offset will be added to the data
             self.gain = self.spinBox_gain.value()  # Gain set by user
             self.offset = self.spinBox_offset.value()  # Offset set by user
             data = {
@@ -894,7 +931,8 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         for sensor in [ALL_SENSORS] + SENSORS:
             sensor_name = sensor['name']
             if sensor_name == 'LANDSAT_8' or sensor_name == 'SENTINEL_2':
-                add_ordered_combo_item(self.sensor_combo_box, sensor_name, sensor['key'])
+                add_ordered_combo_item(
+                    self.sensor_combo_box, sensor_name, sensor['key'])
 
     def clear_combo_box(self, combo_box):
         """Clears/removes all of the entries in the provided combo_box
@@ -927,7 +965,8 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.start_difference_map_creation)
 
         # Product type has changed
-        self.map_product_combo_box.currentIndexChanged.connect(self.product_type_change)
+        self.map_product_combo_box.currentIndexChanged.connect(
+            self.product_type_change)
 
         # Stacked widget connector
         self.stacked_widget.currentChanged.connect(self.set_next_button_text)
