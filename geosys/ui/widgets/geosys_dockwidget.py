@@ -60,6 +60,7 @@ from geosys.ui.widgets.geosys_coverage_downloader import (
     CoverageSearchThread, create_map, create_difference_map, create_samz_map
 )
 from geosys.ui.widgets.geosys_itemwidget import CoverageSearchResultItemWidget
+from geosys.ui.widgets.geosys_rx_itemwidget import RxParametersItemWidget
 from geosys.utilities.gui_utilities import (
     add_ordered_combo_item, layer_icon, is_polygon_layer, layer_from_combo,
     add_layer_to_canvas, reproject, item_data_from_combo,
@@ -232,6 +233,9 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     def show_previous_page(self):
         """Open previous page of stacked widget."""
+
+        print('show previous page')
+
         if self.current_stacked_widget_index > 0:
             # If the current map type is elevation or soil map and the
             # widget is on the map creation page, the back button should
@@ -241,7 +245,9 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.current_stacked_widget_index == 2):
                 self.current_stacked_widget_index -= 2
             else:
+                print('else: ' + str(self.current_stacked_widget_index))
                 self.current_stacked_widget_index -= 1
+                print('after: ' + str(self.current_stacked_widget_index))
             self.stacked_widget.setCurrentIndex(
                 self.current_stacked_widget_index)
             self.next_push_button.setEnabled(True)
@@ -348,7 +354,8 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         text_rule = {
             0: 'Search Map',
             1: 'Next',
-            2: 'Create Map'
+            2: 'Create Map',
+            3: 'Create Map'
         }
         self.next_push_button.setText(text_rule[index])
 
@@ -832,6 +839,25 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         finally:
             QApplication.restoreOverrideCursor()
 
+    def open_rx_parameters(self):
+        print('open rx parameters')
+
+        self.stacked_widget.setCurrentIndex(3)
+        self.current_stacked_widget_index += 1
+
+        self.populate_rx_parameters()
+
+    def populate_rx_parameters(self):
+        print('populate parameters')
+
+        custom_widget = RxParametersItemWidget(1, 12)
+
+        new_item = QListWidgetItem(self.lw_zone_parameters)
+        new_item.setSizeHint(custom_widget.sizeHint())
+        #new_item.setData(Qt.UserRole, coverage_map_json)
+        self.lw_zone_parameters.addItem(new_item)
+        self.lw_zone_parameters.setItemWidget(new_item, custom_widget)
+
     def start_difference_map_creation(self):
         """Difference Map creation starts here."""
         message_title = 'Difference Map Creation Status'
@@ -1120,6 +1146,9 @@ class GeosysPluginDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # List widget item connector
         self.coverage_result_list.itemSelectionChanged.connect(
             self.update_selection_data)
+
+        # RX map creation
+        self.btn_rx_settings.clicked.connect(self.open_rx_parameters)
 
     def unblock_signals(self):
         """Let the combos listen for event changes again."""
